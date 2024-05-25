@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penghitung Umur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input {
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Penghitung Umur</h1>
+        <input type="number" id="day" placeholder="Hari" min="1" max="31">
+        <input type="number" id="month" placeholder="Bulan" min="1" max="12">
+        <input type="number" id="year" placeholder="Tahun" min="1900" max="2100">
+        <button onclick="calculateAge()">Hitung Umur</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateAge() {
+            // Ambil nilai dari input
+            let day = document.getElementById('day').value;
+            let month = document.getElementById('month').value;
+            let year = document.getElementById('year').value;
+
+            // Validasi input
+            if (!day || !month || !year) {
+                document.getElementById('result').innerText = "Mohon isi semua field.";
+                return;
+            }
+
+            // Tanggal lahir
+            let birthDate = new Date(year, month - 1, day);
+            let today = new Date();
+
+            // Hitung umur dalam tahun
+            let ageYears = today.getFullYear() - birthDate.getFullYear();
+            let ageMonths = today.getMonth() - birthDate.getMonth();
+            let ageDays = today.getDate() - birthDate.getDate();
+
+            // Adjust the months and years if the month or day is not reached yet
+            if (ageDays < 0) {
+                ageMonths--;
+                let lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                ageDays += lastMonth.getDate();
+            }
+
+            if (ageMonths < 0) {
+                ageYears--;
+                ageMonths += 12;
+            }
+
+            // Tampilkan hasil
+            document.getElementById('result').innerText = `Umur Anda adalah ${ageYears} tahun, ${ageMonths} bulan, dan ${ageDays} hari.`;
+        }
+    </script>
+</body>
+</html>
