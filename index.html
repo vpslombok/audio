@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Penghitung Umur</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,6 +55,7 @@
         <div class="result" id="result"></div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function calculateAge() {
             // Ambil nilai dari input
@@ -63,7 +65,11 @@
 
             // Validasi input
             if (!day || !month || !year) {
-                document.getElementById('result').innerText = "Mohon isi semua field.";
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Mohon isi semua field.'
+                });
                 return;
             }
 
@@ -89,7 +95,11 @@
             }
 
             // Tampilkan hasil
-            document.getElementById('result').innerText = `Umur Anda adalah ${ageYears} tahun, ${ageMonths} bulan, dan ${ageDays} hari.`;
+            Swal.fire({
+                title: 'Hasil',
+                text: `Umur Anda adalah ${ageYears} tahun, ${ageMonths} bulan, dan ${ageDays} hari.`,
+                icon: 'success'
+            });
         }
     </script>
 </body>
